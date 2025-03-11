@@ -1,0 +1,66 @@
+import os
+import time
+from datetime import datetime
+
+# Simulated function to get USB devices (for Colab compatibility)
+def get_usb_devices():
+    # Simulate a list of USB devices
+    usb_devices = [
+        {"id": "USB\\VID_0781&PID_5581", "name": "SanDisk Ultra USB Device"},
+        {"id": "USB\\VID_1234&PID_5678", "name": "Kingston DataTraveler"}
+    ]
+    return usb_devices
+
+# Function to log USB device activity
+def log_usb_activity(device_id, device_name, activity):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"{timestamp} - {device_id} - {device_name} - {activity}"
+    print(log_entry)  # Print to console (for Colab)
+    with open("usb_log.txt", "a") as log_file:
+        log_file.write(log_entry + "\n")
+
+# Simulated function to analyze USB registry (for Colab compatibility)
+def analyze_usb_registry(device_id):
+    # Simulate registry analysis
+    registry_info = {
+        "DeviceDesc": "USB Mass Storage Device",
+        "FriendlyName": "SanDisk Ultra USB Device"
+    }
+    print(f"Analyzing registry for USB device: {device_id}")
+    for key, value in registry_info.items():
+        print(f"{key}: {value}")
+
+# Main function to track USB devices
+def track_usb_devices():
+    print("Starting USB Device Tracking System...")
+    
+    while True:
+        # Simulate USB device connection
+        usb_devices = get_usb_devices()
+        
+        if not usb_devices:
+            print("No USB devices found.")
+            break
+        
+        for device in usb_devices:
+            device_id = device["id"]
+            device_name = device["name"]
+            
+            # Log connection
+            log_usb_activity(device_id, device_name, "Connected")
+            
+            # Simulate registry analysis
+            analyze_usb_registry(device_id)
+            
+            # Simulate file transfer
+            log_usb_activity(device_id, device_name, "File Transfer: example.txt")
+            
+            # Log disconnection
+            log_usb_activity(device_id, device_name, "Disconnected")
+        
+        # Simulate a delay before checking again
+        time.sleep(10)  # Check every 10 seconds
+
+# Run the USB tracking system
+if __name__ == "__main__":
+    track_usb_devices()
